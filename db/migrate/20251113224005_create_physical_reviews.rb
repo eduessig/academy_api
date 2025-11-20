@@ -6,9 +6,9 @@ class CreatePhysicalReviews < ActiveRecord::Migration[7.2]
       t.references :user, null: false, foreign_key: :user_id
       t.references :personal_trainer, null: false, foreign_key: :personal_trainer_id
       t.date :review_date, null: false
-      t.decimal :weight, null: false, precision: 1
-      t.decimal :height, null: false, precision: 1
-      t.decimal :body_fat_percentage, precision: 2
+      t.decimal :weight, null: false
+      t.decimal :height, null: false
+      t.decimal :body_fat_percentage
     end
   end
 end

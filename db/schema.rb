@@ -14,14 +14,13 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_13_234923) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "equipment", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "exercises", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name", null: false
+    t.integer "sets", null: false
+    t.integer "repetitions", null: false
+    t.string "machine"
   end
 
   create_table "personal_trainers", force: :cascade do |t|
@@ -40,16 +39,11 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_13_234923) do
     t.bigint "user_id", null: false
     t.bigint "personal_trainer_id", null: false
     t.date "review_date", null: false
-    t.decimal "weight", precision: 1, null: false
-    t.decimal "height", precision: 1, null: false
-    t.decimal "body_fat_percentage", precision: 2
+    t.decimal "weight", null: false
+    t.decimal "height", null: false
+    t.decimal "body_fat_percentage"
     t.index ["personal_trainer_id"], name: "index_physical_reviews_on_personal_trainer_id"
     t.index ["user_id"], name: "index_physical_reviews_on_user_id"
-  end
-
-  create_table "suppliers", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -92,6 +86,13 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_13_234923) do
   create_table "workouts", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.bigint "personal_trainer_id", null: false
+    t.string "name", null: false
+    t.integer "duration"
+    t.integer "difficulty", null: false
+    t.index ["personal_trainer_id"], name: "index_workouts_on_personal_trainer_id"
+    t.index ["user_id"], name: "index_workouts_on_user_id"
   end
 
   add_foreign_key "physical_reviews", "personal_trainers"
@@ -99,4 +100,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_13_234923) do
   add_foreign_key "users", "personal_trainers"
   add_foreign_key "workout_exercises", "exercises"
   add_foreign_key "workout_exercises", "workouts"
+  add_foreign_key "workouts", "personal_trainers"
+  add_foreign_key "workouts", "users"
 end

@@ -30,14 +30,20 @@ class PersonalTrainersController < ApplicationController
   end
 
   def destroy
-    @personal_trainer.destroy
-    render json: { message: "Personal Trainer deleted successfully" }
+    if @personal_trainer.destroy
+      render json: { message: "Personal Trainer deleted successfully" }
+    else
+      render json: { error: @personal_trainer.errors.full_messages }, status: :unprocessable_entity
+    end
   end
 
   private
 
   def set_personal_trainer
     @personal_trainer = PersonalTrainer.find(params[:id])
+
+    rescue ActiveRecord::RecordNotFound
+      render json: { error: "Personal Trainer not found" }, status: :not_found
   end
 
   def personal_trainer_params

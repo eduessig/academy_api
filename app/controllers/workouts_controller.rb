@@ -38,6 +38,9 @@ class WorkoutsController < ApplicationController
 
   def set_workout
     @workout = Workout.find(params[:id])
+
+    rescue ActiveRecord::RecordNotFound
+      render json: { error: "Workout not found" }, status: :not_found
   end
 
   def workout_params

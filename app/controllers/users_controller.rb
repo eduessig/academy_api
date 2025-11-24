@@ -31,14 +31,20 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user.destroy
-    render json: { message: "User deleted successfully" }
+    if @user.destroy
+      render json: { message: "User deleted successfully" }
+    else
+      render json: { error: @user.errors.full_messages }, status: :unprocessable_entity
+    end
   end
 
   private
 
   def set_user
     @user = User.find(params[:id])
+
+    rescue ActiveRecord::RecordNotFound
+      render json: { error: "User not found" }, status: :not_found
   end
 
   def user_params

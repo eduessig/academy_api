@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   resources :workouts
   resources :personal_trainers
   resources :physical_reviews
+  resources :workout_exercises
 
   match "workout_exercises/link_workout_to_exercise", to: "workout_exercises#link_workout_to_exercise", via: :post
   post "/login", to: "auth#login"

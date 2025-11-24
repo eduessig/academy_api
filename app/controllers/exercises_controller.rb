@@ -30,14 +30,20 @@ class ExercisesController < ApplicationController
   end
 
   def destroy
-    @exercise.destroy
-    render json: { message: "Exercise deleted successfully" }
+    if @exercise.destroy
+      render json: { message: "Exercise deleted successfully" }
+    else
+      render json: { error: @exercise.errors.full_messages }, status: :unprocessable_entity
+    end
   end
 
   private
 
   def set_exercise
     @exercise = Exercise.find(params[:id])
+
+    rescue ActiveRecord::RecordNotFound
+      render json: { error: "Exercise not found" }, status: :not_found
   end
 
   def exercise_params

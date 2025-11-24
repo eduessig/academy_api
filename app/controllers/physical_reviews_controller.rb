@@ -38,6 +38,9 @@ class PhysicalReviewsController < ApplicationController
 
   def set_physical_review
     @physical_review = PhysicalReview.find(params[:id])
+
+    rescue ActiveRecord::RecordNotFound
+      render json: { error: "Physical Review not found" }, status: :not_found
   end
 
   def physical_review_params

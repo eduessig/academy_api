@@ -35,7 +35,7 @@ gem "image_processing", "~> 1.2"
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin Ajax possible
 # gem "rack-cors"
 
-gem "devise_token_auth", "~> 1.2.5"
+gem "devise_token_auth", "~> 1.2.6"
 gem "devise"
 gem "jwt"
 

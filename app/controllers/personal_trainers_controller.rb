@@ -1,4 +1,5 @@
 class PersonalTrainersController < ApplicationController
+  skip_before_action :authenticate_request, only: [ :create ]
   before_action :set_personal_trainer, only: [ :show, :update, :destroy ]
 
   def index
